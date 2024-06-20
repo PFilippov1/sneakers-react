@@ -133,6 +133,11 @@ h5 {
     margin: 0;
     font-size: 24px;
   }
+  .items {
+    overflow: auto;
+    margin-bottom: 40;
+    flex:1;
+  }
 }
 
 .cartItem {
@@ -149,6 +154,7 @@ h5 {
     background-repeat: no-repeat;
     margin-right: 20px;
   }
+
   p {
     font-size: 14px;
     margin: 0;
@@ -156,7 +162,6 @@ h5 {
   b {
     font-size: 16px;
   }
- 
 
   .removeBtn {
     opacity: 0.5;
@@ -168,21 +173,60 @@ h5 {
   }
 }
 
-.cardTotalBlock{
-  li{
-    display: flex;
-    align-items:flex-end;
-    margin-bottom: 20px;
+.cardTotalBlock {
+  ul {
+    display: block;
+    margin-bottom: 40px !important;
+    li {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 20px;
+    }
+    div {
+      flex: 1;
+      height: 1px;
+      border-bottom: 1px dashed #dfdfdf;
+      position: relative;
+      top: -4px;
+      margin: 0 7px;
+    }
   }
-  div{
-    flex: 1;
-    height: 1px;
-    border-bottom: 1px dashed #dfdfdf;
+  .greenButton {
     position: relative;
-    top:-4px;
-    margin: 0 7px;
+    img {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      transition: transform 0.2 ease-in-out;
+    }
+
+    &:hover {
+      img {
+        transform: translateX(5px);
+      }
+    }
   }
 }
-.items{
-  flex:1;
+
+.items {
+  flex: 1;
+}
+
+.greenButton {
+  width: 100%;
+  background: #9dd558;
+  height: 55px;
+  border-radius: 18px;
+  border: none;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.1s ease-in-out;
+  &:hover {
+    background: lighten($color: #9dd558, $amount: 5%);
+  }
+  &:active {
+    background: darken($color: #9dd558, $amount: 5%);
+  }
 }
