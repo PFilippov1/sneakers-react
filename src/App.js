@@ -80,17 +80,18 @@ function App() {
         </div>
 
         <section className="sneakers d-flex">
-          {/* <Card
-            title="Men`s sneakers Nike Blazer Mid Suede"
-            price={120}
-            imageUrl="/assets/sneakers/1.jpg"
-          />
-           */}
-          {arr.map((card) => (
+          {arr.map((card, index) => (
             <Card
+            key = {index}
               title={card.title}
               price={card.price}
               imageUrl={card.imageUrl}
+              onFavorite={() => {
+                console.log("Favorite clicked");
+              }}
+              onPlus={() => {
+                console.log("Plus clicked");
+              }}
             />
           ))}
         </section>
