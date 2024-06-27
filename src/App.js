@@ -1,6 +1,7 @@
 import Card from "./components/Card";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
+import React from "react";
 
 const arr = [
   {
@@ -66,10 +67,11 @@ const arr = [
 ];
 
 function App() {
+  const [cartOpen, setCartOpen] = React.useState(false);
   return (
     <div className="wrapper clear">
-      <Drawer />
-      <Header />
+      {cartOpen && <Drawer onClose={()=>{setCartOpen(false)}} />}
+      <Header onClickCart={()=>{setCartOpen(true)}} onCloseCart={()=>{setCartOpen(false)}}/>
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
           <h1>All sneakers</h1>
@@ -82,7 +84,7 @@ function App() {
         <section className="sneakers d-flex">
           {arr.map((card, index) => (
             <Card
-            key = {index}
+              key={index}
               title={card.title}
               price={card.price}
               imageUrl={card.imageUrl}
