@@ -1,11 +1,11 @@
-function Drawer(props) {
+function Drawer({ onClose, items = [] }) {
   return (
     <div className="overlay">
-      
+
       <div className="drawer">
         <h3 className="mb-30 d-flex justify-between ">
           Cart{" "}
-          <img onClick={props.onClose}
+          <img onClick={onClose}
             className="removeBtn cu-p"
             src="/assets/img/cartButtonRemove.svg"
             alt="Close"
@@ -13,40 +13,29 @@ function Drawer(props) {
         </h3>
 
         <div className="items">
-          <div className="cartItem d-flex align-center mb-20">
-            <div
-              style={{ backgroundImage: "url(/assets/sneakers/1.jpg)" }}
-              className="cartItemImg"
-            ></div>
-            <div className="mr-20 flex">
-              <p className="mb-5">Men`s air Nike sneakers</p>
-              <b>120 $</b>
-            </div>
-            <div>
-              <img
-                className="removeBtn"
-                src="/assets/img/cartButtonRemove.svg"
-                alt="button"
-              ></img>
-            </div>
-          </div>
-          <div className="cartItem d-flex align-center mb-20">
-            <div
-              style={{ backgroundImage: "url(/assets/sneakers/2.jpg)" }}
-              className="cartItemImg"
-            ></div>
-            <div className="mr-20 flex">
-              <p className="mb-5">Men`s air Nike sneakers</p>
-              <b>120 $</b>
-            </div>
-            <div>
-              <img
-                className="removeBtn"
-                src="/assets/img/cartButtonRemove.svg"
-                alt="button"
-              ></img>
-            </div>
-          </div>
+          {items.map((obj) => {
+            return (
+              <div className="cartItem d-flex align-center mb-20" key={obj.title}>
+                <div
+                  style={{ backgroundImage: `url(${obj.imageUrl})` }}
+                  className="cartItemImg"
+                ></div>
+                <div className="mr-20 flex">
+                  <p className="mb-5">{obj.title}</p>
+                  <b>{obj.price}</b>
+                </div>
+                <div>
+                  <img
+                    className="removeBtn"
+                    src="/assets/img/cartButtonRemove.svg"
+                    alt="button"
+                  ></img>
+                </div>
+              </div>
+            );
+          })}
+
+
         </div>
         <div className="cardTotalBlock">
           <ul>
@@ -66,7 +55,7 @@ function Drawer(props) {
           </button>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 export default Drawer;
