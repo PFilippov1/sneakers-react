@@ -3,29 +3,32 @@ import React from 'react';
 
 
 
-function Card(props) {
+function Card({ title, imageUrl, price, onFavorite, onPlus }) {
 
   const [isAdded, setIsAdded] = React.useState(false);
-  const onClickPlus = () => { setIsAdded(!isAdded); };
+  const onClickPlus = () => {
+    onPlus({title, imageUrl, price});
+    setIsAdded(!isAdded);
+  };
 
   React.useEffect(() => { console.log('some changes') }, [isAdded])
 
   return (
     <div className={styles.card} >
-      <div className={styles.favorite} onClick={props.onFavorite}>
+      <div className={styles.favorite} onClick={onFavorite}>
         <img src="/assets/img/heart-unliked.svg" alt="Unliked"></img>
       </div>
       <img
         width={133}
         height={112}
-        src={props.imageUrl}
+        src={imageUrl}
         alt="sneakers"
       />
-      <h5>{props.title}</h5>
+      <h5>{title}</h5>
       <div className="d-flex justify-between align-center">
         <div className="d-flex flex-column ">
           <span>Price:</span>
-          <b>{props.price}$</b>
+          <b>{price}$</b>
         </div>
 
         {/* <button  className="button" onClick={props.onPlus}> */}

@@ -3,24 +3,87 @@ import Header from "./components/Header";
 import Drawer from "./components/Drawer";
 import React from "react";
 
+///
+// const arr = [
+//   {
+//     title: "Men`s sneakers Nike Blazer Mid Suede",
+//     price: 120,
+//     imageUrl: "/assets/sneakers/1.jpg",
+//   },
+//   {
+//     title: "Men`s sneakers Air Max 270",
+//     price: 130,
+//     imageUrl: "/assets/sneakers/2.jpg",
+//   },
+//   {
+//     title: "Men`s sneakers Nike Blazer Mid Suede",
+//     price: 140,
+//     imageUrl: "/assets/sneakers/3.jpg",
+//   },
+//   {
+//     title: "Men`s sneakers Puma X Aka Boku Future Rider",
+//     price: 110,
+//     imageUrl: "/assets/sneakers/4.jpg",
+//   },
+//   {
+//     title: "Men`s sneakers Under Armour Curry 8",
+//     price: 130,
+//     imageUrl: "/assets/sneakers/5.jpg",
+//   },
+//   {
+//     title: "Men`s sneakers Nike Kyrie 7",
+//     price: 150,
+//     imageUrl: "/assets/sneakers/6.jpg",
+//   },
+//   {
+//     title: "Men`s sneakers Jordan Air Jordan 11",
+//     price: 100,
+//     imageUrl: "/assets/sneakers/7.jpg",
+//   },
+//   {
+//     title: "Men`s sneakers Nike LeBron XVIII",
+//     price: 120,
+//     imageUrl: "/assets/sneakers/8.jpg",
+//   },
+//   {
+//     title: "Men`s sneakers Nike ",
+//     price: 130,
+//     imageUrl: "/assets/sneakers/9.jpg",
+//   },
+//   {
+//     title: "Men`s sneakers Nike Kyrie Flytrap",
+//     price: 110,
+//     imageUrl: "/assets/sneakers/10.png",
+//   },
+//   {
+//     title: "Men`s sneakers Nike Flytrap IV",
+//     price: 130,
+//     imageUrl: "/assets/sneakers/11.png",
+//   },
+//   {
+//     title: "Men`s sneakers Nike ",
+//     price: 100,
+//     imageUrl: "/assets/sneakers/12.jpg",
+//   },
+// ];
+
+///
 
 function App() {
   const [items, setItems] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([
-    {
-      title: "Men`s sneakers Nike Blazer Mid Suede",
-      price: 120,
-      imageUrl: "/assets/sneakers/1.jpg",
-    },
-    {
-      title: "Men`s sneakers Air Max 270",
-      price: 130,
-      imageUrl: "/assets/sneakers/2.jpg",
-    },
+    // {
+    //   title: "Men`s sneakers Nike Blazer Mid Suede",
+    //   price: 120,
+    //   imageUrl: "/assets/sneakers/1.jpg",
+    // },
+    // {
+    //   title: "Men`s sneakers Air Max 270",
+    //   price: 130,
+    //   imageUrl: "/assets/sneakers/2.jpg",
+    // },
   ]);
   const [cartOpen, setCartOpen] = React.useState(false);
-  //
-  //
 
   React.useEffect(() => {
     fetch("https://6691464a26c2a69f6e8f3048.mockapi.io/items")
@@ -29,6 +92,10 @@ function App() {
       })
       .then((json) => setItems(json));
   }, []);
+
+  const onAddToCart = (obj) => {
+    setCartItems((prev) => [...prev, obj]);
+  };
 
   return (
     <div className="wrapper clear">
@@ -67,8 +134,8 @@ function App() {
               onFavorite={() => {
                 console.log("Favorite clicked");
               }}
-              onPlus={() => {
-                console.log("Plus clicked");
+              onPlus={(obj) => {
+                onAddToCart(obj);
               }}
             />
           ))}
