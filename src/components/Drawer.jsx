@@ -13,6 +13,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
         </h3>
 
         <div className="items">
+
           {items.map((obj) => {
             return (
               <div className="cartItem d-flex align-center mb-20" key={obj.title}>
@@ -36,6 +37,10 @@ function Drawer({ onClose, onRemove, items = [] }) {
             );
           })}
 
+          {items.length === 0 && (<div className="emptyCart">
+            <img src='assets/img/emptyCart.png' alt="cartEmpty"></img>
+          </div>)
+          }
 
         </div>
         <div className="cardTotalBlock">

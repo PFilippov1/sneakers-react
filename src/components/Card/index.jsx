@@ -6,17 +6,27 @@ import React from 'react';
 function Card({ title, imageUrl, price, onFavorite, onPlus }) {
 
   const [isAdded, setIsAdded] = React.useState(false);
+  const [isFavorite, setIsFavorite] = React.useState(false);
+
   const onClickPlus = () => {
-    onPlus({title, imageUrl, price});
+    onPlus({ title, imageUrl, price });
     setIsAdded(!isAdded);
   };
 
-  React.useEffect(() => { console.log('some changes') }, [isAdded])
+  const onClickFavorite = () => {
+    setIsFavorite(!isFavorite)
+    onFavorite({ title, imageUrl, price })
+
+  }
+
+  // React.useEffect(() => { console.log('some changes') }, [isAdded])
 
   return (
     <div className={styles.card} >
-      <div className={styles.favorite} onClick={onFavorite}>
-        <img src="/assets/img/heart-unliked.svg" alt="Unliked"></img>
+      <div className={styles.favorite} onClick={onClickFavorite}>
+        <img src={isFavorite ? "/assets/img/heart-liked.svg" : "/assets/img/heart-unliked.svg"}
+          alt="plus"></img>
+
       </div>
       <img
         width={133}
@@ -31,12 +41,10 @@ function Card({ title, imageUrl, price, onFavorite, onPlus }) {
           <b>{price}$</b>
         </div>
 
-        {/* <button  className="button" onClick={props.onPlus}> */}
         <img className={styles.plus} onClick={onClickPlus}
           src={isAdded ? "/assets/img/btn-checked.svg" : "/assets/img/btn-plus.svg"}
           alt="plus"
         ></img>
-        {/* </button> */}
       </div>
     </div>)
 }

@@ -146,18 +146,8 @@ import axios from "axios";
 
 function App() {
   const [items, setItems] = React.useState([]);
-  const [cartItems, setCartItems] = React.useState([
-    // {
-    //   title: "Men`s sneakers Nike Blazer Mid Suede",
-    //   price: 120,
-    //   imageUrl: "/assets/sneakers/1.jpg",
-    // },
-    // {
-    //   title: "Men`s sneakers Air Max 270",
-    //   price: 130,
-    //   imageUrl: "/assets/sneakers/2.jpg",
-    // },
-  ]);
+  const [cartItems, setCartItems] = React.useState([]);
+  const [favorites, setFavorites] = React.useState([]);
   const [cartOpen, setCartOpen] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState("");
 
@@ -188,20 +178,24 @@ function App() {
     setCartItems((prev) => [...prev, obj]);
   };
 
-  // const onRemoveItem = (id) => {
-  //   axios.delete(`https://6691464a26c2a69f6e8f3048.mockapi.io/cart/${id}`);
-  //   setCartItems((prev) => prev.filter((item) => item.id !== id));
+  // const onAddToFavorite = (obj) => {
+  //   axios.post("https://6691464a26c2a69f6e8f3048.mockapi.io/favorite", obj);
+  //   setFavorites((prev) => [...prev, obj]);
   // };
 
-  const onRemoveItem = (id) => {
-    axios.delete(`https://6691464a26c2a69f6e8f3048.mockapi.io/cart/${id}`)
-      .then(() => {
-        setItems((prevCartItems) => prevCartItems.filter((item) => item.id !== id));
-        console.log("Item deleted successfully");
-      })
-      .catch((error) => console.error("Error deleting item:", error));
+  const onAddToFavorite = (obj) => {
+    if (obj) {
+      setFavorites((prev) => [...prev, obj]);
+      console.log(favorites);
+    }
+
+    // console.log(arr)
   };
-  
+
+  const onRemoveItem = (id) => {
+    axios.delete(`https://6691464a26c2a69f6e8f3048.mockapi.io/cart/${id}`);
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
 
   // //TODO
   // const onAddToCart = (obj) => {
@@ -279,9 +273,8 @@ function App() {
                 title={item.title}
                 price={item.price}
                 imageUrl={item.imageUrl}
-                onFavorite={() => {
-                  console.log("Favorite clicked");
-                }}
+                // onFavorite={onAddToFavorite}
+                onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj) => {
                   onAddToCart(obj);
                 }}

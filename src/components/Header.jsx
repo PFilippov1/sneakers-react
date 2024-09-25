@@ -48,6 +48,11 @@ function Header(props) {
           </svg>
           <span className="ml-15">18 usd</span>
         </li>
+
+        <li className="mr-30 cu-p">
+          <img width={18} height={18} src="/assets/img/heart.svg" alt="favorites"></img>
+        </li>
+
         <li>
           <svg
             width="18"
