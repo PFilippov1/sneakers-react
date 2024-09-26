@@ -1,12 +1,10 @@
 import styles from './card.module.scss'
 import React from 'react';
 
-
-
-function Card({ title, imageUrl, price, onFavorite, onPlus }) {
-
+function Card({title, imageUrl, price, onFavorite, onPlus, favorited=false }) {
   const [isAdded, setIsAdded] = React.useState(false);
-  const [isFavorite, setIsFavorite] = React.useState(false);
+  const [isFavorite, setIsFavorite] = React.useState(favorited);
+
 
   const onClickPlus = () => {
     onPlus({ title, imageUrl, price });
@@ -15,9 +13,10 @@ function Card({ title, imageUrl, price, onFavorite, onPlus }) {
 
   const onClickFavorite = () => {
     setIsFavorite(!isFavorite)
-    onFavorite({ title, imageUrl, price })
+    onFavorite({ title, imageUrl, price}) //add id because mock api restrictions 
 
   }
+
 
   // React.useEffect(() => { console.log('some changes') }, [isAdded])
 

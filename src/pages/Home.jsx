@@ -1,4 +1,5 @@
 import Card from "../components/Card";
+
 function Home({ items,
   searchValue,
   setSearchValue,
@@ -37,11 +38,12 @@ function Home({ items,
           .filter((item) => item.title.toLowerCase().includes(searchValue))
           .map((item, index) => (
             <Card
-              key={index}
+              // key={index}
+              key={item.id}
+              
               title={item.title}
               price={item.price}
               imageUrl={item.imageUrl}
-              // onFavorite={onAddToFavorite}
               onFavorite={(obj) => onAddToFavorite(obj)}
               onPlus={(obj) => {
                 onAddToCart(obj);

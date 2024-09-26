@@ -4,6 +4,7 @@ import Drawer from "./components/Drawer";
 import React from "react";
 import axios from "axios";
 import Home from "./pages/Home";
+import Favorites from "./pages/Favorites";
 
 function App() {
   const [items, setItems] = React.useState([]);
@@ -24,6 +25,12 @@ function App() {
       .then((res) => {
         setCartItems(res.data);
       });
+
+    // axios
+    // .get("https://6691464a26c2a69f6e8f3048.mockapi.io/favorites")
+    // .then((res) => {
+    //   setFavorites(res.data);
+    // });
   }, []);
 
   const onAddToCart = (obj) => {
@@ -88,6 +95,11 @@ function App() {
               onAddToCart={onAddToCart}
             />
           }
+        />
+        <Route
+          path="/favorites"
+          exact
+          element={<Favorites items={favorites} onAddToFavorite={onAddToFavorite}/>}
         />
       </Routes>
     </div>
