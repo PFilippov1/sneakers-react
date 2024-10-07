@@ -1,6 +1,7 @@
 import Card from "../components/Card";
 
 function Home({ items,
+  cartItems,
   searchValue,
   setSearchValue,
   onChangeSearchInput,
@@ -38,9 +39,8 @@ function Home({ items,
           .filter((item) => item.title.toLowerCase().includes(searchValue))
           .map((item, index) => (
             <Card
-              // key={index}
-              key={item.id}
-              
+              key={index}
+              id={item.id}
               title={item.title}
               price={item.price}
               imageUrl={item.imageUrl}
@@ -48,7 +48,9 @@ function Home({ items,
               onPlus={(obj) => {
                 onAddToCart(obj);
               }}
+              added={cartItems.some(obj => Number(obj.id) === Number(item.id))}
             />
+
           ))}
       </section>
     </div>

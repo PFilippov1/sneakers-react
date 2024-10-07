@@ -13,29 +13,61 @@ function App() {
   const [cartOpen, setCartOpen] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState("");
 
+  // React.useEffect(() => {
+  //   axios
+  //     .get("https://6691464a26c2a69f6e8f3048.mockapi.io/items")
+  //     .then((res) => {
+  //       setItems(res.data);
+  //     });
+
+  //   axios
+  //     .get("https://6691464a26c2a69f6e8f3048.mockapi.io/cart")
+  //     .then((res) => {
+  //       setCartItems(res.data);
+  //     });
+
+  //   // axios
+  //   // .get("https://6691464a26c2a69f6e8f3048.mockapi.io/favorites")
+  //   // .then((res) => {
+  //   //   setFavorites(res.data);
+  //   // });
+  // }, []);
+
   React.useEffect(() => {
-    axios
-      .get("https://6691464a26c2a69f6e8f3048.mockapi.io/items")
-      .then((res) => {
-        setItems(res.data);
-      });
+    async function fetchData() {
+      try {
+        const cartResponse = await axios.get(
+          "https://6691464a26c2a69f6e8f3048.mockapi.io/cart"
+        );
+        setCartItems(cartResponse.data);
+        const itemsResponse = await axios.get(
+          "https://6691464a26c2a69f6e8f3048.mockapi.io/items"
+        );
+        setItems(itemsResponse.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
 
-    axios
-      .get("https://6691464a26c2a69f6e8f3048.mockapi.io/cart")
-      .then((res) => {
-        setCartItems(res.data);
-      });
-
-    // axios
-    // .get("https://6691464a26c2a69f6e8f3048.mockapi.io/favorites")
-    // .then((res) => {
-    //   setFavorites(res.data);
-    // });
+    fetchData();
   }, []);
 
   const onAddToCart = (obj) => {
-    axios.post("https://6691464a26c2a69f6e8f3048.mockapi.io/cart", obj);
-    setCartItems((prev) => [...prev, obj]);
+    try {
+      if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
+        axios.delete(
+          `https://6691464a26c2a69f6e8f3048.mockapi.io/cart/${obj.id}`
+        );
+        setCartItems((prev) =>
+          prev.filter((item) => Number(item.id) !== Number(obj.id))
+        );
+      } else {
+        axios.post("https://6691464a26c2a69f6e8f3048.mockapi.io/cart", obj);
+        setCartItems((prev) => [...prev, obj]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // const onAddToFavorite = (obj) => {
@@ -43,18 +75,43 @@ function App() {
   //   setFavorites((prev) => [...prev, obj]);
   // };
 
-  const onAddToFavorite = (obj) => {
-    if (obj) {
-      setFavorites((prev) => [...prev, obj]);
-      console.log(favorites);
-    }
+  // const onAddToFavorite = (obj) => {
+  //   if (obj) {
+  //     setFavorites((prev) => [...prev, obj]);
+  //     console.log(favorites);
+  //   }
+  // };
 
-    // console.log(arr)
+  // const onAddToFavorite = (obj) => {
+  //   if (favorites.find((obj) => obj.id === obj.id)) {
+  //     axios.delete(`favorites/${obj.id}`);
+  //     setFavorites((prev) => prev.filter((item) => item.id === obj.id));
+  //   }else{
+  //       axios.post('/favorites', obj)
+  //       setFavorites((prev) => [...prev, obj]);
+  //       console.log(favorites);}
+  //        }
+  // };
+  const onAddToFavorite = (obj) => {
+    const isFavorite = favorites.some((item) => item.id === obj.id);
+
+    if (isFavorite) {
+      // Delete element from array favorites
+      setFavorites((prev) => prev.filter((item) => item.id !== obj.id));
+    } else {
+      // Add element to array favorites
+      setFavorites((prev) => [...prev, obj]);
+    }
+    console.log(favorites);
   };
 
   const onRemoveItem = (id) => {
-    axios.delete(`https://6691464a26c2a69f6e8f3048.mockapi.io/cart/${id}`);
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+    try {
+      axios.delete(`https://6691464a26c2a69f6e8f3048.mockapi.io/cart/${id}`);
+      setCartItems((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onChangeSearchInput = (event) => {
@@ -88,6 +145,7 @@ function App() {
           element={
             <Home
               items={items}
+              cartItems={cartItems}
               searchValue={searchValue}
               setSearchValue={setSearchValue}
               onChangeSearchInput={onChangeSearchInput}
@@ -99,7 +157,9 @@ function App() {
         <Route
           path="/favorites"
           exact
-          element={<Favorites items={favorites} onAddToFavorite={onAddToFavorite}/>}
+          element={
+            <Favorites items={favorites} onAddToFavorite={onAddToFavorite} />
+          }
         />
       </Routes>
     </div>

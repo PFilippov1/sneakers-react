@@ -1,19 +1,19 @@
 import styles from './card.module.scss'
 import React from 'react';
 
-function Card({title, imageUrl, price, onFavorite, onPlus, favorited=false }) {
-  const [isAdded, setIsAdded] = React.useState(false);
+function Card({id, title, imageUrl, price, onFavorite, onPlus, favorited=false, added=false }) {
+  const [isAdded, setIsAdded] = React.useState(added);
   const [isFavorite, setIsFavorite] = React.useState(favorited);
 
 
   const onClickPlus = () => {
-    onPlus({ title, imageUrl, price });
+    onPlus({ id, title, imageUrl, price });
     setIsAdded(!isAdded);
   };
 
   const onClickFavorite = () => {
     setIsFavorite(!isFavorite)
-    onFavorite({ title, imageUrl, price}) //add id because mock api restrictions 
+    onFavorite({ id, title, imageUrl, price}) 
 
   }
 

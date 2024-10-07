@@ -3,37 +3,37 @@ function Drawer({ onClose, onRemove, items = [] }) {
     <div className="overlay">
 
       <div className="drawer">
-        <h3 className="mb-30 d-flex justify-between ">
+        <h2 className="mb-30 d-flex justify-between ">
           Cart{" "}
           <img onClick={onClose}
             className="removeBtn cu-p"
             src="/assets/img/cartButtonRemove.svg"
             alt="Close"
           ></img>
-        </h3>
+        </h2>
 
         <div className="items">
 
           {items.map((obj) => {
             return (
-              <div className="cartItem d-flex align-center mb-20" key={obj.title}>
-                <div
-                  style={{ backgroundImage: `url(${obj.imageUrl})` }}
-                  className="cartItemImg"
-                ></div>
-                <div className="mr-20 flex">
-                  <p className="mb-5">{obj.title}</p>
-                  <b>{obj.price}</b>
-                </div>
-                <div>
-                  <img
-                    onClick={() => { onRemove(obj.id) }}
-                    className="removeBtn"
-                    src="/assets/img/cartButtonRemove.svg"
-                    alt="Remove"
-                  ></img>
-                </div>
+            <div key={obj.id} className="cartItem d-flex align-center mb-20" >
+              <div
+                style={{ backgroundImage: `url(${obj.imageUrl})` }}
+                className="cartItemImg"
+              ></div>
+              <div className="mr-20 flex">
+                <p className="mb-5">{obj.title}</p>
+                <b>{obj.price}</b>
               </div>
+              <div>
+                <img
+                  onClick={() => { onRemove(obj.id) }}
+                  className="removeBtn"
+                  src="/assets/img/cartButtonRemove.svg"
+                  alt="Remove"
+                ></img>
+              </div>
+            </div>
             );
           })}
 
