@@ -6,7 +6,35 @@ function Home({ items,
   setSearchValue,
   onChangeSearchInput,
   onAddToFavorite,
-  onAddToCart }) {
+  onAddToCart,
+  isLoading }) {
+
+ 
+  const renderItems = () => {
+    const filtredItems = items.filter((item) =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
+    return (isLoading ? [...Array(12)] : filtredItems).map((item, index) =>
+      item ? (
+        <Card
+          key={index}
+          id={item.id}
+          title={item.title}
+          price={item.price}
+          imageUrl={item.imageUrl}
+          onFavorite={(obj) => onAddToFavorite(obj)}
+          onPlus={(obj) => {
+            onAddToCart(obj);
+          }}
+          added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
+          loading={isLoading}
+        />
+      ) : (
+        <Card key={index} loading={isLoading} />
+      )
+    );
+  };
 
   return (
     <div className="content p-40">
@@ -35,26 +63,11 @@ function Home({ items,
       </div>
 
       <section className="sneakers d-flex flex-wrap">
-        {items
-          .filter((item) => item.title.toLowerCase().includes(searchValue))
-          .map((item, index) => (
-            <Card
-              key={index}
-              id={item.id}
-              title={item.title}
-              price={item.price}
-              imageUrl={item.imageUrl}
-              onFavorite={(obj) => onAddToFavorite(obj)}
-              onPlus={(obj) => {
-                onAddToCart(obj);
-              }}
-              added={cartItems.some(obj => Number(obj.id) === Number(item.id))}
-            />
-
-          ))}
+        {renderItems()}
       </section>
     </div>
   )
 }
 
 export default Home;
+

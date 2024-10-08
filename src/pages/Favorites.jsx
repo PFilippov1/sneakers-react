@@ -20,9 +20,9 @@ function Favorites({ items, onAddToFavorite }) {
               title={item.title}
               price={item.price}
               imageUrl={item.imageUrl}
-              favorited={true} 
+              favorited={true}
               onFavorite={onAddToFavorite}
-
+              
             />
           ))}
       </section>
