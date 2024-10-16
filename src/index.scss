@@ -103,12 +103,34 @@ ul.d-flex {
     overflow: auto;
     margin-bottom: 40;
     flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 
 .emptyCart {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  img:nth-child(0) {
+    width: 120px;
+    height: 120px;
+  }
+}
+.emptyCart .greenButton {
+  position: relative;
+  img {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    transition: transform 0.2 ease-in-out;
+  }
+  &:hover {
+    img {
+      transform: translateX(5px);
+    }
+  }
 }
 
 .cartItem {
@@ -146,7 +168,6 @@ ul.d-flex {
 
 .cardTotalBlock {
   ul {
-    
     display: block;
     margin-bottom: 40px !important;
     li {
@@ -165,12 +186,16 @@ ul.d-flex {
   }
   .greenButton {
     position: relative;
+
+    
+
     img {
       position: absolute;
       top: 20px;
       right: 30px;
       transition: transform 0.2 ease-in-out;
     }
+    
 
     &:hover {
       img {
@@ -200,5 +225,9 @@ ul.d-flex {
   }
   &:active {
     background: darken($color: #9dd558, $amount: 5%);
+  }
+  &:disabled {
+    background-color: #bebebe !important;
+    cursor: default;
   }
 }

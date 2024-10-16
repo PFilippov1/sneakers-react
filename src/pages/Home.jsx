@@ -1,7 +1,8 @@
+import React from "react";
 import Card from "../components/Card";
 
+
 function Home({ items,
-  cartItems,
   searchValue,
   setSearchValue,
   onChangeSearchInput,
@@ -9,7 +10,7 @@ function Home({ items,
   onAddToCart,
   isLoading }) {
 
- 
+
   const renderItems = () => {
     const filtredItems = items.filter((item) =>
       item.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -18,7 +19,7 @@ function Home({ items,
     return (isLoading ? [...Array(12)] : filtredItems).map((item, index) =>
       item ? (
         <Card
-          key={index}
+          key={index} 
           id={item.id}
           title={item.title}
           price={item.price}
@@ -27,8 +28,8 @@ function Home({ items,
           onPlus={(obj) => {
             onAddToCart(obj);
           }}
-          added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
           loading={isLoading}
+          // {...item}
         />
       ) : (
         <Card key={index} loading={isLoading} />
