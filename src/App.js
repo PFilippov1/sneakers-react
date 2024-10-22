@@ -6,6 +6,7 @@ import axios from "axios";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import AppContext from "./context";
+import Orders from "./pages/Orders";
 
 function App() {
   const [items, setItems] = React.useState([]);
@@ -97,7 +98,9 @@ function App() {
   //        }
   // };
   const onAddToFavorite = (obj) => {
-    const isFavorite = favorites.some((item) =>Number(item.id ) === Number(obj.id));
+    const isFavorite = favorites.some(
+      (item) => Number(item.id) === Number(obj.id)
+    );
 
     if (isFavorite) {
       // Delete element from array favorites
@@ -125,11 +128,20 @@ function App() {
 
   const isItemAdded = (id) => {
     return cartItems.some((obj) => Number(obj.id) === Number(id));
-
   };
 
   return (
-    <AppContext.Provider value={{ items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpen, setCartItems }}>
+    <AppContext.Provider
+      value={{
+        items,
+        cartItems,
+        favorites,
+        isItemAdded,
+        onAddToFavorite,
+        setCartOpen,
+        setCartItems,
+      }}
+    >
       <div className="wrapper clear">
         {cartOpen && (
           <Drawer
@@ -165,11 +177,8 @@ function App() {
               />
             }
           />
-          <Route
-            path="/favorites"
-            exact
-            element={<Favorites/>}
-          />
+          <Route path="/favorites" exact element={<Favorites />} />
+          <Route path="/orders" exact element={<Orders />} />
         </Routes>
       </div>
     </AppContext.Provider>

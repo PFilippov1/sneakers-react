@@ -1,22 +1,22 @@
-import AppContext from "../context";
 import Card from "../components/Card";
 import React from "react";
+import AppContext from "../context";
 
-function Favorites() {
+function Orders() {
 
-  const {favorites, onAddToFavorite} = React.useContext(AppContext);
-  
+  const { orders } = React.useContext(AppContext);
+
   return (
-    <div className="content p-40">
+    <div className="content p-40" >
       <div className="d-flex align-center justify-between mb-40">
         <h1>
-          MY TABS
+          MY ORDERS
         </h1>
 
       </div>
 
       <section className="sneakers d-flex flex-wrap">
-        {favorites
+        {[]
           .map((item, index) => (
             <Card
               key={index}
@@ -24,13 +24,11 @@ function Favorites() {
               title={item.title}
               price={item.price}
               imageUrl={item.imageUrl}
-              favorited={true}
-              onFavorite={onAddToFavorite}
             />
           ))}
       </section>
-    </div>
+    </div >
   )
 }
 
-export default Favorites;
+export default Orders;
