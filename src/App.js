@@ -57,18 +57,35 @@ function App() {
     fetchData();
   }, []);
 
-  const onAddToCart = (obj) => {
+  const onAddToCart = async (obj) => {
     try {
-      if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
-        axios.delete(
-          `https://6691464a26c2a69f6e8f3048.mockapi.io/cart/${obj.id}`
-        );
+      const findItem = cartItems.find(
+        (item) => Number(item.parentId) === Number(obj.id)
+      );
+      if (findItem) {
         setCartItems((prev) =>
-          prev.filter((item) => Number(item.id) !== Number(obj.id))
+          prev.filter((item) => Number(item.parentId) !== Number(obj.id))
+        );
+        await axios.delete(
+          `https://6691464a26c2a69f6e8f3048.mockapi.io/cart/${findItem.id}`
         );
       } else {
-        axios.post("https://6691464a26c2a69f6e8f3048.mockapi.io/cart", obj);
+       // it makes data display without backend delay
         setCartItems((prev) => [...prev, obj]);
+        const { data } = await axios.post(
+          "https://6691464a26c2a69f6e8f3048.mockapi.io/cart",
+          obj
+        );
+        setCartItems((prev) =>
+          prev.map((item) => {
+            if (item.parentId === data.parentId) {
+              return {
+                ...item,
+                id: data.id,
+              };
+            } else return item;
+          })
+        );
       }
     } catch (error) {
       console.log(error);
@@ -112,10 +129,14 @@ function App() {
     console.log(favorites);
   };
 
-  const onRemoveItem = (id) => {
+  const onRemoveItem = async (id) => {
     try {
-      axios.delete(`https://6691464a26c2a69f6e8f3048.mockapi.io/cart/${id}`);
-      setCartItems((prev) => prev.filter((item) => item.id !== id));
+      await axios.delete(
+        `https://6691464a26c2a69f6e8f3048.mockapi.io/cart/${id}`
+      );
+      setCartItems((prev) =>
+        prev.filter((item) => Number(item.id) !== Number(id))
+      );
     } catch (error) {
       console.log(error);
     }
@@ -127,7 +148,7 @@ function App() {
   };
 
   const isItemAdded = (id) => {
-    return cartItems.some((obj) => Number(obj.id) === Number(id));
+    return cartItems.some((obj) => Number(obj.parentId) === Number(id));
   };
 
   return (
@@ -143,15 +164,14 @@ function App() {
       }}
     >
       <div className="wrapper clear">
-        {cartOpen && (
-          <Drawer
-            items={cartItems}
-            onClose={() => {
-              setCartOpen(false);
-            }}
-            onRemove={onRemoveItem}
-          />
-        )}
+        <Drawer
+          items={cartItems}
+          onClose={() => {
+            setCartOpen(false);
+          }}
+          onRemove={onRemoveItem}
+          opened={cartOpen}
+        />
         <Header
           onClickCart={() => {
             setCartOpen(true);
