@@ -10,7 +10,7 @@ export const Info = ({ title, image,  description }) => {
       <h2>{title}</h2>
       <p className="opacity-6">{description}</p>
       <button onClick={() => setCartOpen(false)} className="greenButton">
-        <img src="/assets/img/arrowLeft.svg" alt="Arrow" />
+        <img src="assets/img/arrowLeft.svg" alt="Arrow" />
         Go back
       </button>
     </div>

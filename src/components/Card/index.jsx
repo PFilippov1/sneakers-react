@@ -38,7 +38,7 @@ function Card({ id, title, imageUrl, price, onFavorite, onPlus, favorited = fals
         </ContentLoader>
 
       </> : <>  <div className={styles.favorite} onClick={onClickFavorite}>
-        <img src={isFavorite ? "/assets/img/heart-liked.svg" : "/assets/img/heart-unliked.svg"}
+        <img src={isFavorite ? "assets/img/heart-liked.svg" : "assets/img/heart-unliked.svg"}
           alt="plus"></img>
 
       </div>
@@ -56,7 +56,7 @@ function Card({ id, title, imageUrl, price, onFavorite, onPlus, favorited = fals
           </div>
 
           <img className={styles.plus} onClick={onClickPlus}
-            src={isItemAdded(id) ? "/assets/img/btn-checked.svg" : "/assets/img/btn-plus.svg"}
+            src={isItemAdded(id) ? "assets/img/btn-checked.svg" : "assets/img/btn-plus.svg"}
             alt="plus"
           ></img>
 

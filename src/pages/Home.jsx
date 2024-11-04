@@ -46,12 +46,12 @@ function Home({ items,
             : "All sneakers"}
         </h1>
         <div className="search-block d-flex">
-          <img src="/assets/img/search.svg" alt="Search"></img>
+          <img src="assets/img/search.svg" alt="Search"></img>
           {searchValue && (
             <img
               onClick={() => setSearchValue("")}
               className="clear removeBtn cu-p"
-              src="/assets/img/cartButtonRemove.svg"
+              src="assets/img/cartButtonRemove.svg"
               alt="Clear"
             ></img>
           )}

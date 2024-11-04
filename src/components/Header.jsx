@@ -12,7 +12,7 @@ function Header(props) {
             className="mr-15"
             width={40}
             height={40}
-            src="/assets/img/logo.png"
+            src="assets/img/logo.png"
             alt="img"
           />
           <div className="headerInfo">
@@ -58,7 +58,7 @@ function Header(props) {
 
         <li className="mr-30 cu-p">
           <Link to="/favorites">
-            <img width={18} height={18} src="/assets/img/heart.svg" alt="Favorites" />
+            <img width={18} height={18} src="assets/img/heart.svg" alt="Favorites" />
           </Link>
         </li>
 

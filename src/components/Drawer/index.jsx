@@ -1,10 +1,7 @@
 import React from 'react'
 import { useCart } from '../../hooks/useCart';
-
 import Info from "../Info";
 import axios from 'axios';
-import AppContext from '../../context';
-
 import styles from './drawer.module.scss'
 
 
@@ -12,10 +9,10 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
   const [isOrderComplete, setIsOrderComplete] = React.useState(false)
-  const [orderId, setOrderId] = React.useState(null) // it will not work because of mocAPI base(only 2 entities)
+  // const [orderId, setOrderId] = React.useState(null) // it will not work because of mocAPI base(only 2 entities)
   const { cartItems, setCartItems, totalPrice } = useCart();
   const [isLoading, setIsLoading] = React.useState(false)
-  const [order, setOrder] = React.useState([]) // because restrictions of mocAPI
+  const [setOrder] = React.useState([]) // because restrictions of mocAPI
 
   const onClickOrder = async () => {
     try {
@@ -46,7 +43,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
           Cart{" "}
           <img onClick={onClose}
             className="removeBtn cu-p"
-            src="/assets/img/cartButtonRemove.svg"
+            src="assets/img/cartButtonRemove.svg"
             alt="Close"
           ></img>
         </h2>
@@ -68,7 +65,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
                     <img
                       onClick={() => { onRemove(obj.id) }}
                       className="removeBtn"
-                      src="/assets/img/cartButtonRemove.svg"
+                      src="assets/img/cartButtonRemove.svg"
                       alt="Remove"
                     ></img>
                   </div>
@@ -79,7 +76,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
           {items.length <= 0 ? (
             <Info
               title={isOrderComplete ? 'Order placed' : 'Empty Cart'}
-              image={isOrderComplete ? 'assets/img/order.png' : '/assets/img/emptyCart.png'}
+              image={isOrderComplete ? 'assets/img/order.png' : 'assets/img/emptyCart.png'}
               description={isOrderComplete ? 'Order #1 is ready for delivery ' : 'Please add at least one pair'}>
 
             </Info>)
@@ -98,7 +95,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
                   </li>
                 </ul>
                 <button disabled={isLoading} onClick={onClickOrder} className="greenButton">
-                  create order <img src="/assets/img/arrow.svg" alt="arrow"></img>
+                  create order <img src="assets/img/arrow.svg" alt="arrow"></img>
                 </button>
               </div>)
           }

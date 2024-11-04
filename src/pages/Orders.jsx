@@ -1,10 +1,10 @@
 import Card from "../components/Card";
 import React from "react";
-import AppContext from "../context";
+// import AppContext from "../context";
 
 function Orders() {
 
-  const { orders } = React.useContext(AppContext);
+  // const { orders } = React.useContext(AppContext);
 
   return (
     <div className="content p-40" >
